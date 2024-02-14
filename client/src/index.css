@@ -1,51 +1,53 @@
-*{
-    padding: 0;
-    margin: 0;
-    outline: none;
-    text-decoration: none;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
-:root{
-    --primary-color: #063331;
-    --primary-variant: #93f8f3;
-    --color-bg: #31043f; 
-    --color-white: #ffffff;
-    --light-white: #ffffff33;
-    --color-black: #000;
-    --transition: 400s ease-in;
-    --container-lg: 92%;
-    --container-md: 94%;
-    --container-sm: 98%;
-    --b-radius: .5rem;
+:root {
+  --primary-color: #063331;
+  --primary-variant: #93f8f3;
+  --color-bg: #31043f;
+  --color-white: #ffffff;
+  --light-white: #ffffff33;
+  --color-black: #000;
+  --transition: 400s ease-in;
+  --container-lg: 92%;
+  --container-md: 94%;
+  --container-sm: 98%;
+  --b-radius: 0.5rem;
 }
 
-body{
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(/images/background.jpg);
-    background-position: center;
-    background-size: cover;
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-style: normal;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(/images/background.jpg);
+  background-position: center;
+  background-size: cover;
 }
 
-.container{
-    width: var(--container-lg);
-    margin: 0 auto;
+.container {
+  width: var(--container-lg);
+  margin: 0 auto;
 }
 
-
-
-
-
-
-@media screen and (max-width: 900px){
-    .container{
-        width: var(--container-md);
-    }
+@media screen and (max-width: 900px) {
+  .container {
+    width: var(--container-md);
+  }
 }
 
-@media screen and (max-width: 600px){
-    .container{
-        width: var(--container-sm);
-    }
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-sm);
+  }
 }

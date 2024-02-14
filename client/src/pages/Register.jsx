@@ -1,16 +1,20 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/register.css";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {setUsername:setLoggedInUsername, setId} = useContext(UserContext);
 
-  const register = async () =>{
-    await axios.post('/register', {username, email, password});
+  const register = async (e) =>{
+    e.preventDefault();
+    const {data} = await axios.post('/register', {username, email, password});
+    setLoggedInUsername(username);
+    setId(data.id);
   }
   return (
     <div className="container">
@@ -50,7 +54,7 @@ function Register() {
           <input type="submit" value="Register" />
 
           <p>
-            Already have an account?&nbsp;&nbsp;<Link to="/login">Login</Link>
+            Already have an account?&nbsp;&nbsp;<a href="#">Login</a>
           </p>
         </form>
       </section>

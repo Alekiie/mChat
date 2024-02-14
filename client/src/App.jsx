@@ -1,19 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import axios from 'axios';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import axios from "axios";
+import { UserContextProvider } from "./context/UserContext";
+import { useContext } from "react";
+import Routes from "./routes/Routes";
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:4040';
+  axios.defaults.baseURL = "http://localhost:4040";
   axios.defaults.withCredentials = true;
-  return(
-    <Router>
-      <Routes>
-        <Route path='/' element={<Register/>}/>
-        <Route path='/login' element={<Login/>} />
-      </Routes>
-    </Router>
-  )
+  
+
+  return (
+    <UserContextProvider>
+      <Routes/>
+    </UserContextProvider>
+  );
 }
 
-export default App
+export default App;
