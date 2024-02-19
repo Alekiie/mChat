@@ -31,8 +31,9 @@
   border-radius: 0.3rem;
   outline: none;
 }
-.form-section form input[type="submit"] {
+.form-section form button[type="submit"] {
   background-color: rgb(16, 105, 128);
+  padding: 5px;
   border: 1px solid var(--primary-color);
   outline: none;
   border-radius: var(--b-radius);
@@ -45,8 +46,14 @@
   margin-top: 1rem;
 }
 
-.form-section form p > a {
-  color: var(--primary-variant);
+.form-section form p > .switch {
+  color: var(--color-bg);
+  font-family: 'Nunito', sans-serif;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {

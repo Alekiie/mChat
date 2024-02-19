@@ -1,6 +1,5 @@
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
-import { useContext } from "react";
 import Routes from "./routes/Routes";
 
 function App() {
