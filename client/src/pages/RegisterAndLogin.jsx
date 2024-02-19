@@ -16,6 +16,7 @@ function RegisterAndLogin() {
     const url = isLoginOrRegister === 'register' ? '/register' : '/login'
     const payload = isLoginOrRegister === 'register' ? { username, email, password } : { username, password };
     const { data } = await axios.post(url, payload);
+    console.log(data)
     setLoggedInUsername(username);
     setId(data.id);
   };
@@ -77,6 +78,7 @@ function RegisterAndLogin() {
           <section className="form-section">
             <form onSubmit={handlSubmit}>
               <h1>M-Chat Login</h1>
+              {/* <p>{data ? data.message : null }</p> */}
               <input
                 value={username}
                 onChange={(e) => {

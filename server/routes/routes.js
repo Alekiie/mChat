@@ -44,12 +44,15 @@ router.post('/login', async (req, res) => {
                    if (err) throw err;
 
                    //set cookie in client's browser
-                   res.cookie('token', token).json({ id: user._id, username: user.username });
+                   res.cookie('token', token, { sameSite: 'none', secure: true }).json({ id: user._id });
                });
            }
+       } else {
+        res.status(404).json("User does not exist!!")
        }
    } catch (error) {
     console.error(error);
+       res.status(404).json("User does not exist!!")
    }
 })
 
