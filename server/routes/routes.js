@@ -18,34 +18,45 @@ router.get('/test', (req, res) => {
     return res.sendStatus(200);
 });
 
-router.get('/profile', (req, res)=>{
+router.get('/profile', (req, res) => {
     const token = req.cookies?.token;
-    if(token){
-        jwt.verify(token, jwt_secret, {}, (err, userData)=>{
-            if(err) throw err;
-    
+    if (token) {
+        jwt.verify(token, jwt_secret, {}, (err, userData) => {
+            if (err) throw err;
+
             res.status(200).json(userData);
         })
-    } else{
+    } else {
         res.status(401).json(`no token`)
     }
 })
 
-router.post('/login', async(req, res)=>{
+router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const foundUser = User.findOne({username});
+    const user = await  User.findOne({ username });
+    // console.log(user);
+   try {
+       if (user) {
+           const passOk = bcrypt.compareSync(password, user.password);
+           if (passOk) {
+               //create a json web token and send it to the client
+               jwt.sign({ userId: user._id, username }, jwt_secret, {}, (err, token) => {
+                   if (err) throw err;
+
+                   //set cookie in client's browser
+                   res.cookie('token', token).json({ id: user._id, username: user.username });
+               });
+           }
+       }
+   } catch (error) {
+    console.error(error);
+   }
 })
 
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        const hash = bcrypt.hashSync(password, salt);
-        
-        //check to see if the username or email is already in use
-        let existingUser = await User.findOne({$or: [{username}, {email}]});  
-        if(existingUser) { 
-            return res.status(409).json('Username or Email is already in use'); 
-        }
+        const hash = await bcrypt.hashSync(password, salt);
 
         //*********ALTERNATIVE*********** */
         // const newUser = new User({
@@ -58,7 +69,7 @@ router.post('/register', async (req, res) => {
         const createdUser = await User.create({ username, email, password: hash });
         jwt.sign({ userId: createdUser._id, username }, jwt_secret, {}, (err, token) => {
             if (err) throw err;
-            res.cookie('token', token, {sameSite: 'none', secure: true}).status(201).json({
+            res.cookie('token', token, { sameSite: 'none', secure: true }).status(201).json({
                 id: createdUser._id,
             });
         });

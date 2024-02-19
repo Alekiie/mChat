@@ -14,13 +14,14 @@ function RegisterAndLogin() {
   const handlSubmit = async (e) => {
     e.preventDefault();
     const url = isLoginOrRegister === 'register' ? '/register' : '/login'
-    const { data } = await axios.post(url, { username, email, password });
+    const payload = isLoginOrRegister === 'register' ? { username, email, password } : { username, password };
+    const { data } = await axios.post(url, payload);
     setLoggedInUsername(username);
     setId(data.id);
   };
   return (
     <>
-      {isLoginOrRegister === 'register' ? (
+      {isLoginOrRegister === "register" ? (
         <div className="container">
           <section className="form-section">
             <form onSubmit={handlSubmit}>
@@ -61,7 +62,10 @@ function RegisterAndLogin() {
 
               <p>
                 Already have an account?&nbsp;&nbsp;
-                <button className="switch" onClick={(e) => setIsloginOrRegister("login")}>
+                <button
+                  className="switch"
+                  onClick={(e) => setIsloginOrRegister("login")}
+                >
                   Login
                 </button>
               </p>
@@ -74,23 +78,35 @@ function RegisterAndLogin() {
             <form onSubmit={handlSubmit}>
               <h1>M-Chat Login</h1>
               <input
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
                 type="text"
                 name="username"
                 id="username"
                 placeholder="Username"
               />
               <input
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
               />
               <button type="submit">
-                {isLoginOrRegister === 'login' ? 'Login' : 'Register'}
+                {isLoginOrRegister === "login" ? "Login" : "Register"}
               </button>
 
               <p>
-                Don't have an account?&nbsp;&nbsp;<button className="switch"  onClick={()=>setIsloginOrRegister('register')} >
+                Don't have an account?&nbsp;&nbsp;
+                <button
+                  className="switch"
+                  onClick={() => setIsloginOrRegister("register")}
+                >
                   Register
                 </button>
               </p>
